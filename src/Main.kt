@@ -8,15 +8,15 @@ import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
 
-abstract class Products(val name:String,var count:Int,var price:Int, var url:URL)
+abstract class Products(val name:String,var count:Int,var price:Double, var url:URL)
 {
     abstract fun print()
 }
 
 class Fabric(
     name: String,
-    count: Int ,
-    price: Int,
+    count: Int,
+    price: Double,
     url:URL,
     var a: Int = 0,
     var b: Int = 0,
@@ -31,7 +31,7 @@ class Fabric(
 class Tools(
     name: String,
     count: Int ,
-    price: Int,
+    price: Double,
     url:URL,
     var description: String,
     var instructions: String,
@@ -81,40 +81,49 @@ class CMain
     }
     private val tovar = mutableListOf<Fabric>(
         Fabric(
-            name = "Бетон",
+            name = "бетонно-цементная смесь",
             count = 5,
-            price = 40,
-            url=URI("https://www.doitbest.com/main-building-materials/").toURL(),
-            a=20,
-            b=30,
-            c=10,
+            price = 12.99,
+            url =URI("https://www.doitbest.com/product/264074/quikrete-commercial-grade-quick-setting-cement-264074/?member=main-building-materials").toURL(),
+            a =20,
+            b =30,
+            c =10,
         ),
         Fabric(
             name = "Плитка",
             count = 7,
-            price = 30,
-            url=URI("https://www.doitbest.com/main-building-materials/").toURL(),
-            a=30,
-            b=50,
-            c=20,
+            price = 32.99,
+            url =URI("https://www.doitbest.com/product/123862/dpi-aquatile-4-ft-x-8-ft-x-1-8-in-gray-encinitas-tileboard-wall-tile-123862/?member=main-building-materials").toURL(),
+            a =30,
+            b =50,
+            c =20,
+        ),
+        Fabric(
+            name = "Внутренний шуруп",
+            count = 7,
+            price = 10.99,
+            url =URI("https://www.doitbest.com/product/201147/spax-10-x-3-in-flat-head-interior-multi-material-construction-screw-1-lb-box-201147/?member=main-building-materials").toURL(),
+            a =30,
+            b =50,
+            c =20,
         ),
     )
     private val tools = mutableListOf<Tools>(
         Tools(
             name = "Пила",
             count = 4,
-            price = 40000,
-            url=URI("https://www.doitbest.com/main-building-materials/").toURL(),
-            description = " ",
-            instructions = " ",
+            price = 74.99,
+            url=URI("https://www.doitbest.com/product/732893/remington-versa-saw-rm1645-16-in-12a-electric-chainsaw-732893/?member=main-building-materials").toURL(),
+            description = "Ремингтон 16 дюймов. Электрическая бензопила 12А оснащена двигателем на 16 дюймов. стержень и цепь с низкой отдачей, удобный доступ к натяжителю цепи с помощью винта с накатанной головкой, автоматическая смазка, полностью охватываемая рукоятка для резки под любым углом, удобный обзор масляного резервуара и стальные выступающие зубья для лучшего рычага и контроля. Полностью собран. Вес: 9,5 фунтов. Ограниченная гарантия 2 года.",
+            instructions = "Необходимо взять пилу и подключить к источнику электропитания, а затем пилить необходимую древесину",
         ),
         Tools(
-            name = "Коса",
+            name = "Электрическая газонокосилка",
             count = 5,
-            price = 10000,
-            url=URI("https://www.doitbest.com/main-building-materials/").toURL(),
-            description = " ",
-            instructions = " ",
+            price = 219.99,
+            url=URI("https://www.doitbest.com/product/701122/black-decker-20-in-13a-push-electric-lawn-mower-701122/?member=main-building-materials").toURL(),
+            description = "Легкая электрическая газонокосилка проста в управлении и приводится в действие двигателем Black & Decker на 13 А. 20 В. Дека 3-в-1 для мульчирования, сбора в мешок или бокового выброса. Технология Edge Max для резки близко к кромке. Прочная, не ржавеющая палуба легко чистится и имеет пожизненную гарантию. Ручка легко складывается для компактного хранения. Конструкция сумки с подъемным механизмом облегчает опорожнение и прикрепление. Требуется минимальная сборка. В комплект входит задняя сумка в сборе. Дверца закрывается на задней части газонокосилки, образуя пробку для мульчи. Высота среза: 1-1/2 дюйма. до 4 В. с регулировкой высоты одним рычагом. Идеальный размер собственности: до 1/3 акра в пределах 100 футов. электрической розетки. 21,875 дюймов. Ш х 34,125 дюйма. Высота х 17,25 дюйма. D. Вес устройства: 46,85 фунтов. См. модель № CMB2000 для замены лезвия косилки.",
+            instructions = "Необходимо взять газонокосилку и подключить к источнику электропитания, а косить траву",
         )
     )
 
@@ -133,9 +142,9 @@ class CMain
         println("Наименование стройматериала: ")
         val name = readln()
         println("Количество стройматериала: ")
-        var count= readln().toInt()
+        val count= readln().toInt()
         println("Цена стройматериала: ")
-        val price = readln().toInt()
+        val price = readln().toDouble()
         var url : String
         var urlCleared : URL
         while (true) {
@@ -165,9 +174,9 @@ class CMain
         println("Наименование инструмента: ")
         val name = readln()
         println("Количество инструмента: ")
-        var count= readln().toInt()
+        val count= readln().toInt()
         println("Цена инструмента: ")
-        val price = readln().toInt()
+        val price = readln().toDouble()
         println("Описание инструмента: ")
         val description = readln()
         println("Инструкция инструмента: ")
@@ -228,29 +237,31 @@ class CMain
             println("По вашему запросу ничего не найдено!")
     }
 
-    suspend fun downloadFile(url: URL, outputFileName: String) {
-        //withContext(Dispatchers.IO) {
+    fun downloadFile(url: URL, outputFileName: String) {
         url.openStream().use {
             Files.copy(it, Paths.get(outputFileName), StandardCopyOption.REPLACE_EXISTING)
         }
-        //}
-        //println(outputFileName)
+
     }
-    private suspend fun downloadFileWC(url: URL, outputFileName: String) {
-        withContext(Dispatchers.IO) {
-            url.openStream().use {
-                Files.copy(it, Paths.get(outputFileName), StandardCopyOption.REPLACE_EXISTING)
-            }
-        }
-    }
-    private fun loadURL()
-    {
+
+    private fun loadURL() {
         println("Началась загрузка адресов.")
         runBlocking {
             tovar
                 .asFlow()
                 .onEach { tovar ->
-                    downloadFile(tovar.url, tovar.name)
+                    downloadFile(tovar.url, "${tovar.name}.html")
+                }
+                .flowOn(Dispatchers.IO)
+                .collect {
+                    println("Загрузка завершена: ${it.name}")
+                }
+        }
+        runBlocking {
+            tools
+                .asFlow()
+                .onEach { tools ->
+                    downloadFile(tools.url, "${tools.name}.html")
                 }
                 .flowOn(Dispatchers.IO)
                 .collect {
